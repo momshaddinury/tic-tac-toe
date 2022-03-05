@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// Model
-class TicTac {
-  TicTac({required this.marker});
-
-  String marker;
-}
-
-List<TicTac> _ticTac = [
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-  TicTac(marker: ""),
-];
+import 'model.dart';
+import 'widgets/score_card.dart';
 
 /// Variables
 int emptyTiles = 9;
@@ -50,70 +34,70 @@ class TicTacToe extends StatefulWidget {
 class _TicTacToeState extends State<TicTacToe> {
   _checkWinner() {
     /// Row
-    if (_ticTac[0].marker == _ticTac[1].marker &&
-        _ticTac[1].marker == _ticTac[2].marker &&
-        _ticTac[0].marker != "") {
-      print("Winner ${_ticTac[0].marker}");
+    if (ticTac[0].marker == ticTac[1].marker &&
+        ticTac[1].marker == ticTac[2].marker &&
+        ticTac[0].marker != "") {
+      print("Winner ${ticTac[0].marker}");
       _stopGame(0);
     }
-    if (_ticTac[3].marker == _ticTac[4].marker &&
-        _ticTac[4].marker == _ticTac[5].marker &&
-        _ticTac[3].marker != "") {
-      print("Winner ${_ticTac[3].marker}");
+    if (ticTac[3].marker == ticTac[4].marker &&
+        ticTac[4].marker == ticTac[5].marker &&
+        ticTac[3].marker != "") {
+      print("Winner ${ticTac[3].marker}");
       _stopGame(3);
     }
-    if (_ticTac[6].marker == _ticTac[7].marker &&
-        _ticTac[7].marker == _ticTac[8].marker &&
-        _ticTac[6].marker != "") {
-      print("Winner ${_ticTac[6].marker}");
+    if (ticTac[6].marker == ticTac[7].marker &&
+        ticTac[7].marker == ticTac[8].marker &&
+        ticTac[6].marker != "") {
+      print("Winner ${ticTac[6].marker}");
       _stopGame(6);
     }
 
     /// Column
-    if (_ticTac[0].marker == _ticTac[3].marker &&
-        _ticTac[3].marker == _ticTac[6].marker &&
-        _ticTac[0].marker != "") {
-      print("Winner ${_ticTac[0].marker}");
+    if (ticTac[0].marker == ticTac[3].marker &&
+        ticTac[3].marker == ticTac[6].marker &&
+        ticTac[0].marker != "") {
+      print("Winner ${ticTac[0].marker}");
       _stopGame(0);
     }
-    if (_ticTac[1].marker == _ticTac[4].marker &&
-        _ticTac[4].marker == _ticTac[7].marker &&
-        _ticTac[1].marker != "") {
-      print("Winner ${_ticTac[1].marker}");
+    if (ticTac[1].marker == ticTac[4].marker &&
+        ticTac[4].marker == ticTac[7].marker &&
+        ticTac[1].marker != "") {
+      print("Winner ${ticTac[1].marker}");
       _stopGame(1);
     }
-    if (_ticTac[2].marker == _ticTac[5].marker &&
-        _ticTac[5].marker == _ticTac[8].marker &&
-        _ticTac[2].marker != "") {
-      print("Winner ${_ticTac[2].marker}");
+    if (ticTac[2].marker == ticTac[5].marker &&
+        ticTac[5].marker == ticTac[8].marker &&
+        ticTac[2].marker != "") {
+      print("Winner ${ticTac[2].marker}");
       _stopGame(2);
     }
 
     /// Diagonal
-    if (_ticTac[0].marker == _ticTac[4].marker &&
-        _ticTac[4].marker == _ticTac[8].marker &&
-        _ticTac[0].marker != "") {
-      print("Winner ${_ticTac[0].marker}");
+    if (ticTac[0].marker == ticTac[4].marker &&
+        ticTac[4].marker == ticTac[8].marker &&
+        ticTac[0].marker != "") {
+      print("Winner ${ticTac[0].marker}");
       _stopGame(0);
     }
-    if (_ticTac[2].marker == _ticTac[4].marker &&
-        _ticTac[4].marker == _ticTac[6].marker &&
-        _ticTac[2].marker != "") {
-      print("Winner ${_ticTac[2].marker}");
+    if (ticTac[2].marker == ticTac[4].marker &&
+        ticTac[4].marker == ticTac[6].marker &&
+        ticTac[2].marker != "") {
+      print("Winner ${ticTac[2].marker}");
       _stopGame(2);
     }
   }
 
   _stopGame(int i) {
-    print("Winner ${_ticTac[i].marker}");
-    if (_ticTac[i].marker == "X") xWin++;
-    if (_ticTac[i].marker == "O") oWin++;
+    print("Winner ${ticTac[i].marker}");
+    if (ticTac[i].marker == "X") xWin++;
+    if (ticTac[i].marker == "O") oWin++;
     _restartGame();
     emptyTiles = -1;
   }
 
   _restartGame() {
-    for (final _i in _ticTac) _i.marker = "";
+    for (final _i in ticTac) _i.marker = "";
     xTurn = true;
     emptyTiles = 9;
     setState(() {});
@@ -171,72 +155,24 @@ class _TicTacToeState extends State<TicTacToe> {
                 ],
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Center(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Color(0xFF0BA192),
-                      width: 3,
-                    ),
-                  ),
-                  child: InkWell(
-                    onTap: _restartGame,
-                    child: Text(
-                      "Restart",
-                      style: TextStyle(
+                child: OutlinedButton(
+                  onPressed: _restartGame,
+                  style: OutlinedButton.styleFrom(
+                      primary: Colors.black,
+                      side: BorderSide(color: Color(0xFF0BA192), width: 3),
+                      textStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                        color: Color(0xFF545454),
+                      )),
+                  child: Text("Restart"),
                 ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ScoreCardWidget extends StatelessWidget {
-  const ScoreCardWidget({
-    Key? key,
-    required this.text,
-    required this.point,
-  }) : super(key: key);
-
-  final String text;
-  final int point;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Color(0xFF0BA192),
-          width: 3,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              )),
-          Text("$point",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              )),
-        ],
       ),
     );
   }
@@ -262,11 +198,11 @@ class __TileWidgetState extends State<_TileWidget> {
     return InkWell(
       onTap: () {
         if (emptyTiles != -1) {
-          if (_ticTac[widget.i].marker == "") {
+          if (ticTac[widget.i].marker == "") {
             if (xTurn) {
-              _ticTac[widget.i].marker = "X";
+              ticTac[widget.i].marker = "X";
             } else {
-              _ticTac[widget.i].marker = "O";
+              ticTac[widget.i].marker = "O";
             }
 
             xTurn = !xTurn;
@@ -290,7 +226,7 @@ class __TileWidgetState extends State<_TileWidget> {
         ),
         child: Center(
           child: Text(
-            _ticTac[widget.i].marker,
+            ticTac[widget.i].marker,
             style: TextStyle(
               color: Color(0xFF545454),
               fontSize: 40,
